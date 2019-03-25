@@ -1,0 +1,102 @@
+<div class="card">
+    <div class="card-header text-center"><strong>Sign Up</strong></div>
+    <div class="card-body">
+      <div class="container">
+        <form [formGroup]='form'>
+          <div *ngIf="invalidSignup" class="alert alert-danger">{{errorMessage}}</div>
+          <div class="form-group">
+            <label for="firstName">Firstname:</label>
+            <input 
+            type="text" 
+            formControlName = "firstName" 
+            class="form-control" 
+            id="firstName" 
+            placeholder="Enter Firstname">
+          </div>
+          <div *ngIf="form.get('firstName').touched && form.get('firstName').errors" class="alert alert-danger">
+            <div *ngIf="form.get('firstName').errors.required">required</div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Lastname:</label>
+            <input 
+            type="text" 
+            formControlName="lastName" 
+            class="form-control" 
+            id="lastName" 
+            placeholder="Enter Lastname">
+          </div>
+          <div *ngIf="form.get('lastName').touched && form.get('lastName').errors" class="alert alert-danger">
+            <div *ngIf="form.get('lastName').errors.required">required</div>
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input 
+            type="text" 
+            formControlName="username" 
+            class="form-control" 
+            id="username" 
+            placeholder="Enter username">
+          </div>
+          <div *ngIf="form.get('username').touched && form.get('username').errors" class="alert alert-danger">
+            <div *ngIf="form.get('username').errors.required">username is required</div>
+            <div *ngIf="form.get('username').errors.minlength">username must be minimum 5 charactors</div>
+            <!-- <div *ngIf="form.get('username').errors.unique">username already taken please enter different username</div> -->
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input 
+            type="email" 
+            formControlName="email" 
+            class="form-control" 
+            id="email" 
+            placeholder="Enter Email">
+          </div>
+          <div *ngIf="form.get('email').errors && form.get('email').touched" class="alert alert-danger">
+            <div *ngIf="form.get('email').errors.required">required</div>
+            <div *ngIf="form.get('email').errors.email">invalid email</div>
+            <!-- <div *ngIf="form.get('email').errors.unique">email already exists</div> -->
+          </div>
+          <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input 
+            type="password" 
+            formControlName="password" 
+            class="form-control" 
+            id="pwd" 
+            placeholder="Enter Password">
+          </div>
+          <div *ngIf="form.get('password').touched && form.get('password').errors" class="alert alert-danger">
+            <div *ngIf="form.get('password').errors.required">required</div>
+            <div *ngIf="form.get('password').errors.minlength">min 6 charactors required</div>
+            <div *ngIf="form.get('password').errors.pattern">password must contain atleast one lowercase, uppercase and number</div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input 
+            type="password" 
+            formControlName="confirmPassword" 
+            class="form-control" 
+            id="confirmPassword" 
+            placeholder="Re-enter Password">
+          </div>
+          <div *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').errors" class="alert alert-danger">
+            <div *ngIf="form.get('confirmPassword').errors.required">required</div>
+            <div *ngIf="form.get('confirmPassword').errors.equalTo">both password are not same</div>
+          </div>
+          <div class="form-group form-check">
+            <label class="form-check-label">
+              <input  
+              type="checkbox"
+              formControlName="termsAndConditions" 
+              class="form-check-input" 
+              id="termsAndConditions"> i Accept all Terms & Conditions
+            </label>
+          </div>
+          <div *ngIf="form.get('termsAndConditions').errors" class="alert alert-danger">
+            must accept terms and conditions
+          </div>
+          <button type="submit" [disabled]="form.invalid" (click)="submit()" class="btn btn-primary" >Register</button>
+        </form>
+      </div>
+    </div>
+  </div>

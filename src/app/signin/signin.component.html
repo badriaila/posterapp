@@ -1,0 +1,63 @@
+<div class="card">
+    <div class="card-header text-center"><strong>Sign In</strong></div>
+    <div class="card-body">
+      <div class="container">
+        <div *ngIf="invalidLogin" class="alert alert-danger">{{errorMessage}}</div>
+        <form [formGroup]='form' (ngSubmit)="login()">
+          <div class="form-group">
+            <label for="usernameOrEmail">Username or Email:</label>
+            <input 
+            type="text" 
+            formControlName="usernameOrEmail"
+            class="form-control" 
+            id="usernameOrEmail" 
+            placeholder="Enter username or email">
+          </div>
+          <div *ngIf="form.get('usernameOrEmail').errors && form.get('usernameOrEmail').touched" class="alert alert-danger">
+            <div *ngIf="form.get('usernameOrEmail').errors.required">required</div>
+            <div *ngIf="form.get('usernameOrEmail').errors.minlength">invalid</div>
+            <!-- <div *ngIf="form.get('usernameOrEmail').errors.validate">this is not a valid username or email</div> -->
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input 
+            type="password" 
+            formControlName="password"
+            class="form-control" 
+            id="password" 
+            placeholder="Enter password">
+          </div>
+          <div *ngIf="form.get('password').errors && form.get('password').touched" class="alert alert-danger">
+            <div *ngIf="form.get('password').errors.required">required</div>
+            <div *ngIf="form.get('password').errors.pattern || form.get('password').errors.minlength">enter valid password</div>
+          </div>
+          <div class="float-right"><a class="forgetpassword text-primary" data-toggle="modal" data-target="#myModal">forget password ?</a></div>
+          <button [disabled]=form.invalid class="btn btn-primary">Login</button>
+        </form>
+        <br>
+        <div class="form-group form-check">
+          <label class="form-check-label">
+            <input class="form-check-input" [(ngModel)]="remember" type="checkbox" name="remember"> Remember me
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+      <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Edit Post</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <app-forget-password></app-forget-password>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>

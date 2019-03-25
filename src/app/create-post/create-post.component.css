@@ -1,0 +1,12 @@
+.container{
+    padding: 20px;
+}
+.content{
+    margin-top: 80px;
+}
+.form-control.ng-touched.ng-invalid{
+    border:2px solid red;
+}
+.form-control.ng-valid{
+    border: 2px solid green;
+}

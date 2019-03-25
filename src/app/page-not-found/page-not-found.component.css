@@ -1,0 +1,11 @@
+.outer{
+    min-height:100vh;
+    background-image: url('http://www.shoutech.in/wp-content/uploads/2017/12/404-Error.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+button{
+    margin-top: 500px;
+    margin-left: 450px;
+}

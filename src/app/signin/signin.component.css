@@ -1,0 +1,12 @@
+.card-header{
+    font-size: 20pt;
+}
+.form-control.ng-touched.ng-invalid{
+    border:2px solid rgb(255, 26, 26);
+}
+.form-control.ng-valid{
+    border: 2px solid green;
+}
+a{
+    cursor: pointer;
+}

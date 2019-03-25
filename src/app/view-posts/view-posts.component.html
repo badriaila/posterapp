@@ -1,0 +1,41 @@
+<div class="container-fluid fixed-top bg-white search-outer">
+  <input type="text" [(ngModel)]="searchItem" class="form-control col-md-6 col-12 search-box" placeholder="Search by title">
+</div>
+<div class="container content col-md-6 col-12">
+  <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+  <div class="card" *ngFor="let post of allPosts | search:searchItem ">
+    <div *ngIf="successMessage && post._id == updatedId" class="alert alert-success">{{successMessage}}</div>
+    <div class="card-header">
+      <button *ngIf="post.postedBy == myId" (click)="editPost(post)" data-toggle="modal" data-target="#myModal" class="btn btn-default float-left text-primary">Edit</button>
+      <button *ngIf="post.postedBy == myId" (click)="deletePost(post._id)" class="btn btn-default float-right text-danger">Delete</button>
+      <p class="h4 text-center title">{{post.title}}</p>
+    </div>
+    <div class="card-body">
+      <p class="h5">{{post.message}}</p>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-6"><strong>posted date: </strong><em>{{post.postedDate | date}}</em></div>
+        <div class="col-6"><strong>posted by: </strong><em>{{getName(post.postedBy)}}</em></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Edit Post</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <app-edit-post [post]="post" (update)=onUpdated($event)></app-edit-post>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

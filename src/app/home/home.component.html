@@ -1,0 +1,112 @@
+<div class="container content">
+    <h1 class="text-center">Welcome {{data.firstName}}</h1>
+    <br>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{errorMessage}}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+    <div class="card">
+        <div class="card-header">
+            <p class="h3">Profile Overview</p>
+        </div>
+        <div class="card-body">
+            <div class="container" *ngIf="!changeEmail&&!changePassword&&!deleteAccount">
+                <p class="h4">User Name: <em>{{data.username}}</em></p><br>
+                <p class="h4">Full Name: <em>{{data.firstName}} {{data.lastName}}</em></p><br>
+                <p class="h4">Email: <em>{{data.email}}</em></p><br><br> 
+            </div>  
+            <div *ngIf="changeEmail" class="container col-md-6 col-12 float-left">
+                <h4 class="text-primary">Update Email</h4><br>
+                <form [formGroup]="emailForm">
+                    <div class="form-group">
+                        <label for="email"><strong>New Email:</strong></label>
+                        <input 
+                        type="email"
+                        formControlName="email" 
+                        class="form-control"
+                        id="email"
+                        placeholder="enter new email">
+                    </div>
+                    <div *ngIf="emailForm.get('email').errors && emailForm.get('email').touched" class="alert alert-danger">
+                        <div *ngIf="emailForm.get('email').errors.required">required</div>
+                        <div *ngIf="emailForm.get('email').errors.email">invalid email</div>
+                    </div>
+                    <button [disabled]="emailForm.invalid" (click)="updateEmail()" class="btn btn-info">Update</button>
+                    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </form><br>
+            </div>
+            <div *ngIf="changePassword" class="container col-md-6 col-12 float-left">
+                <h4 class="text-primary">Change Password</h4><br>
+                <form [formGroup]="passwordForm">
+                    <div class="form-group">
+                        <label for="oldPassword"><strong>Old Password:</strong></label>
+                        <input 
+                        type="password" 
+                        formControlName="oldPassword"
+                        class="form-control"
+                        id="oldPassword"
+                        placeholder="enter old password">
+                    </div>
+                    <div *ngIf="passwordForm.get('oldPassword').errors && passwordForm.get('oldPassword').touched" class="alert alert-danger">
+                        <div *ngIf="passwordForm.get('oldPassword').errors.required">required</div>
+                        <div *ngIf="passwordForm.get('oldPassword').errors.minlength || passwordForm.get('oldPassword').errors.pattern">invalid password</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword"><strong>New Password:</strong></label>
+                        <input 
+                        type="password"
+                        formControlName="newPassword" 
+                        class="form-control"
+                        id="newPassword"
+                        placeholder="enter new password">
+                    </div>
+                    <div *ngIf="passwordForm.get('newPassword').touched && passwordForm.get('newPassword').errors" class="alert alert-danger">
+                        <div *ngIf="passwordForm.get('newPassword').errors.required">required</div>
+                        <div *ngIf="passwordForm.get('newPassword').errors.minlength">min 6 charactors required</div>
+                        <div *ngIf="passwordForm.get('newPassword').errors.pattern">password must contain atleast one lowercase, uppercase and number</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword"><strong>Confirm Password:</strong></label>
+                        <input 
+                        type="password" 
+                        formControlName="confirmPassword"
+                        class="form-control"
+                        id="confirmPassword"
+                        placeholder="re-enter new password">
+                    </div>
+                    <div *ngIf="passwordForm.get('confirmPassword').errors && passwordForm.get('confirmPassword').touched" class="alert alert-danger">
+                        <div *ngIf="passwordForm.get('confirmPassword').errors.required">required</div>
+                        <div *ngIf="passwordForm.get('confirmPassword').errors.equalTo">both passwords are not same</div>
+                    </div>
+                    <button [disabled]="passwordForm.invalid" (click)="updatePassword()" class="btn btn-info">Update</button>
+                    <button class="btn btn-danger" (click)="cancel()">Cancel</button>
+                </form><br>
+            </div>
+            <div *ngIf="deleteAccount" class="container col-md-6 col-12 float-left">
+                <h4 class="text-danger">Delete Account</h4><br>
+                <form [formGroup]="checkPassword">
+                    <div class="form-group">
+                        <label for="password"><strong>password:</strong></label>
+                        <input 
+                        type="password"
+                        formControlName="password" 
+                        class="form-control"
+                        id="password"
+                        placeholder="enter password">
+                    </div>
+                    <button [disabled]="checkPassword.invalid" (click)="removeAccount()" class="btn btn-danger">Delete Account</button>
+                    <button class="btn btn-success" (click)="cancel()">Cancel</button>
+                </form><br>
+            </div>
+            <div *ngIf="!changeEmail&&!changePassword&&!deleteAccount" class="row container h6">
+                <button class="btn btn-info col-3 h4" (click)="email()">Change Email</button>
+                <button class="btn btn-warning col-3 h4" (click)="password()">Change Password</button><br><br><br>
+                <button class="btn btn-danger col-3 h4"(click)="delete()">Delete Account</button>
+            </div> 
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-6"><strong>Account created on : </strong><em>{{data.createdDate | date}}</em></div>
+                <div class="col-6"><strong>Total posts : </strong><em>{{data.count}}</em></div>
+            </div>
+        </div>
+    </div>
+</div>
